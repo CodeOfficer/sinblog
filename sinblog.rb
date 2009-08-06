@@ -4,14 +4,22 @@ require 'sinatra'
 require File.join(File.dirname(__FILE__), 'lib', 'sinblog')
 require 'haml'
 require 'sass'
+require 'logger'
+
+#  -----------------------------------------------------------------------------
 
 set :public, 'public'
 set :views,  'views'
 set :haml, { :format => :html5 }
 set :sass, { :style => :compact }
+set :logging, true
+
+#  -----------------------------------------------------------------------------
 
 configure do
   puts "LOADING CONFIGURATION"
+  Log = Logger.new(File.join('logs', "#{Sinatra::Application.environment}.log")) 
+  Log.level  = Logger::INFO
 end
 
 error do
@@ -23,18 +31,20 @@ not_found do
 end
 
 helpers do
-  def testit
-    'yyy'
-  end
+  include Rack::Utils
+  alias_method :h, :escape_html
 end
 
+#  -----------------------------------------------------------------------------
 
 get '/' do
+  Log.info "get '/'"
   haml :index
 end
 
 get '/hello/:name' do |n|
-  "Hello #{n}!" + testit
+  Log.info "get '/hello/:name'"
+  h "Hello #{n}!"
 end
 
 get '/stylesheets/application.css' do

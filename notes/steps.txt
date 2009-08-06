@@ -1,6 +1,8 @@
 http://japhr.blogspot.com/2009/03/rspec-with-sinatra-haml.html
 http://haml-lang.com/
 http://www.alistapart.com/articles/previewofhtml5
+http://ryanfunduk.com/fun-with-couchdb/
+http://www.rubyinside.com/sinatra-29-links-and-resources-for-a-quicker-easier-way-to-build-webapps-1371.html
 
 // --------------------
 
