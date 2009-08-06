@@ -1,0 +1,4 @@
+module Sinblog
+
+
+end
