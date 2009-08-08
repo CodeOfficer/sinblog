@@ -1,10 +1,12 @@
 require 'rubygems'
 $:.unshift File.join(File.dirname(__FILE__), 'vendor', 'sinatra', 'lib')
-require 'sinatra'
+require 'vendor/sinatra/lib/sinatra'
 require File.join(File.dirname(__FILE__), 'lib', 'sinblog')
 require 'haml'
 require 'sass'
-require 'logger'
+# require 'logger'
+require 'vendor/rack-bug/lib/rack/bug'
+
 
 #  -----------------------------------------------------------------------------
 
@@ -18,8 +20,10 @@ set :logging, true
 
 configure do
   puts "LOADING CONFIGURATION"
-  Log = Logger.new(File.join('logs', "#{Sinatra::Application.environment}.log")) 
-  Log.level  = Logger::INFO
+  # Log = Logger.new(File.join('logs', "#{Sinatra::Application.environment}.log")) 
+  # Log.level  = Logger::INFO
+  # use Rack::CommonLogger, Log
+  use Rack::Bug
 end
 
 error do
@@ -38,12 +42,12 @@ end
 #  -----------------------------------------------------------------------------
 
 get '/' do
-  Log.info "get '/'"
+  # Log.info "get '/'"
   haml :index
 end
 
 get '/hello/:name' do |n|
-  Log.info "get '/hello/:name'"
+  # Log.info "get '/hello/:name'"
   h "Hello #{n}!"
 end
 
